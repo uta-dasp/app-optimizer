@@ -15,7 +15,7 @@ Hisense SmartTV4K, Android12/API31, local legacy ADB on port5555,1920×1080 outp
 - Requested stop-after-current during a two-app batch; the in-flight app finished normally and the batch reported stopped. Both apps had already begun by the time the stop was pressed; this does not constitute hardware evidence of skipping a still-pending third item.
 - History recorded before/after filters, request outcomes, elapsed time and measured deltas. A debug Smart Lab request succeeded but remained verification-only, correctly avoiding a Full badge.
 - D-pad focus/confirmation navigation and Back dismissal exercised with injected Android key events. Native controls and spacing visually checked at960×540dp. These are automated remote-equivalent events, not a claim that a human tested every physical remote button.
-- Foreground sample after connection: about22MiB total PSS. This is a snapshot, not a maximum memory guarantee. No continuous polling, boot receiver, foreground service, overlay or accessibility service is present.
+- Foreground PSS samples ranged from about22MiB after connection to about67MiB after repeated app-list/history/operation testing. These are snapshots, not a maximum memory guarantee. No continuous polling, boot receiver, foreground service, overlay or accessibility service is present.
 
 ## Source and automated validation
 
@@ -26,3 +26,8 @@ Unit tests cover actual legacy/modern dumps, split/ABI mixed status, missing/unk
 Android7 and14+ handling is based on primary AOSP source, command-capability checks and parser/command fixtures. **Only Android12 has been physically tested.** This does not promise operation on every firmware or prove service enrollment/permissions on another TV. Both editions require a working legacy loopback ADB endpoint; TLS wireless-debugging pairing is not implemented. Android7 status can be Unknown because its older freeform dump is deliberately not guessed. Android14+ actions/status target primary APK and split dex; secondary dynamic dex files are excluded. Unsupported modern primary-dex capability stops the operation before sending it.
 
 Storage is a net filesystem difference that includes unrelated activity, not an exact compiled-artifact measurement. Reversal preserves learned profiles and is not a snapshot restore. Android can compile again later.
+
+
+## Final release checks
+
+Both TV and Full signed APKs passed26 tests, release lint with0 errors (12 advisory warnings), R8/resource shrinking and independent GitHub Actions matrix builds. Full was installed over TV on Android12 without clearing history or requiring new authorization. Its profile-guided request returnedSuccess and a Profile guided badge; a subsequent full request returnedSuccess and Full. Home returned to the existing custom launcher. Public unauthenticated downloads of both APKs matched the uploaded SHA256 hashes. Broader Full branches remain untested on physical Android7/14+ hardware.

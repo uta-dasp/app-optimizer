@@ -8,6 +8,13 @@ App Optimizer is a separate utility. It preserves your launcher, streaming apps,
 
 ## Install
 
+| Edition | Download APK | Downloader code |
+| --- | --- | --- |
+| TV — Android 8–13 | [TV APK](https://github.com/uta-dasp/app-optimizer/releases/download/v1.0.0/App-Optimizer-v1.0.0-TV.apk) | **3178986** · [short link](https://aftv.news/3178986) |
+| Full — Android 7+ compatibility | [Full APK](https://github.com/uta-dasp/app-optimizer/releases/download/v1.0.0/App-Optimizer-v1.0.0-Full.apk) | **2442807** · [short link](https://aftv.news/2442807) |
+
+With the Downloader app on the TV: enter the numeric code in its URL/search field, choose Go, wait for the APK download, then choose Install. If requested, allow Downloader to install unknown apps. Open App Optimizer and follow the connection steps below. Each code is pinned to this exact1.0.0 APK, not an automatic-update feed. Check GitHub Releases for later versions and compare the suppliedSHA256 file when verifying downloads.
+
 1. Open the public [latest release](https://github.com/uta-dasp/app-optimizer/releases/latest). No GitHub account is required.
 2. Download the signed App Optimizer APK. The release also includes its checksum.
 3. Transfer the APK to your TV and install it using your usual APK installer. If Android asks, allow that installer to install unknown apps.
@@ -99,6 +106,8 @@ Reset is not an exact restore point. It does not recreate an app's earlier learn
 The full post-install `pm compile --reset` operation was rejected by the tested Hisense firmware because clearing all profile data requires system privileges. App Optimizer deliberately uses the verification-only operation instead and does not try to bypass that restriction.
 
 ## Understand storage changes and history
+
+![Saved per-app compilation and reversal results](docs/images/history.png)
 
 - **Storage available** is free space on the TV's `/data` filesystem.
 - **Net storage change** compares free space before and after a run. A positive number means more storage is used; a negative number means space was freed.
