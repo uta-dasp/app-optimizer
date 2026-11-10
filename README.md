@@ -4,7 +4,7 @@ A lightweight Android TV app for compiling your installed apps with a remote con
 
 App Optimizer is a separate utility. It preserves your launcher, streaming apps, app data, sign-ins and network settings. No root, Google account, subscription or computer is needed for everyday use after installation and setup.
 
-![App Optimizer on Android TV](docs/images/app-optimizer.png)
+![App Optimizer showing VLC and Wuplay](docs/images/app-optimizer.png)
 
 ## Install
 
@@ -78,6 +78,8 @@ Compilation can improve some app startup or execution paths. It does not promise
 
 ## Read the status badges
 
+![Wuplay compilation details](docs/images/app-details.png)
+
 Statuses come from Android's compilation records, not from your past button presses. A command returning `Success` does not, by itself, earn a Full badge.
 
 | Status | Meaning |
@@ -86,7 +88,6 @@ Statuses come from Android's compilation records, not from your past button pres
 | **Profile guided** | Android reports profile-based compilation. This is an optimized state. |
 | **Verified only** | Android checked the code without ahead-of-time method compilation. |
 | **Interpreted** | Android 7 reports interpretation instead of ahead-of-time bytecode compilation. Native/JNI stubs may remain. |
-| **Interpreted** | Android 7 reports interpretation instead of ahead-of-time bytecode method compilation. Native/JNI stubs may remain. |
 | **Mixed** | Reported code paths or architectures use different compilation modes. |
 | **Not compiled** | Android reports execution from the APK or an equivalent noncompiled state. |
 | **Unknown** | Android did not expose a recognized, readable record. This does not prove the app is unoptimized. |
@@ -106,8 +107,6 @@ Reset is not an exact restore point. It does not recreate an app's earlier learn
 The full post-install `pm compile --reset` operation was rejected by the tested Hisense firmware because clearing all profile data requires system privileges. App Optimizer deliberately uses the verification-only operation instead and does not try to bypass that restriction.
 
 ## Understand storage changes and history
-
-![Saved per-app compilation and reversal results](docs/images/history.png)
 
 - **Storage available** is free space on the TV's `/data` filesystem.
 - **Net storage change** compares free space before and after a run. A positive number means more storage is used; a negative number means space was freed.
