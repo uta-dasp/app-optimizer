@@ -1,0 +1,38 @@
+plugins { id 'com.android.application' }
+def signingPath = System.getenv('APP_OPTIMIZER_KEYSTORE')
+def signingPassword = System.getenv('APP_OPTIMIZER_KEY_PASSWORD')
+def fullEdition = providers.gradleProperty('fullEdition').map { it.toBoolean() }.getOrElse(false)
+android {
+    namespace 'io.github.utadasp.appoptimizer'
+    compileSdk 34
+    defaultConfig {
+        applicationId 'io.github.utadasp.appoptimizer'
+        minSdk fullEdition ? 24 : 26
+        targetSdk 33
+        versionCode 1
+        versionName fullEdition ? '1.0.0-full' : '1.0.0'
+        buildConfigField 'boolean', 'FULL_EDITION', fullEdition.toString()
+    }
+    buildFeatures { buildConfig true }
+    signingConfigs {
+        localRelease {
+            if (signingPath && signingPassword) {
+                storeFile file(signingPath)
+                storePassword signingPassword
+                keyAlias 'appoptimizer'
+                keyPassword signingPassword
+            }
+        }
+    }
+    buildTypes {
+        release {
+            if (signingPath && signingPassword) signingConfig signingConfigs.localRelease
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 }
+}
+dependencies { testImplementation 'junit:junit:4.13.2' }
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
